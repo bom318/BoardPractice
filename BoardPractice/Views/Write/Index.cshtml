@@ -1,0 +1,31 @@
+﻿@model BoardPractice.Models.Board
+
+@{
+    ViewBag.Title = "Write";
+}
+
+<h2>Create</h2>
+
+<form method="post">
+    <table class="tbl_basic">
+        <tr>
+            <th style="width: 10%;">작성자</th>
+            <td><input type="text" name="userId" value="@Model.sessionId" disabled/></td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td colspan="3"><input type="text" name="title" required/></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td colspan="3"><textarea name="content" rows="10"></textarea></td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="저장" />
+    </p>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Main")
+</div>

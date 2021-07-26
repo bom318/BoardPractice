@@ -1,0 +1,10 @@
+﻿.login-form {
+    text-align: center;
+}
+.password {
+    margin: 10px 0px;
+}
+.log_bt {
+    background: black;
+    color: white;
+}

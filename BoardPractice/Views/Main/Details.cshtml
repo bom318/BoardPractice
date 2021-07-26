@@ -1,0 +1,45 @@
+﻿@model BoardPractice.Models.Board
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<table class="tbl_list">
+    <tr>
+        <th style="width: 6%">@Model.num</th>
+        <th style="width: 67%" class="subject align_l">@Model.title</th>
+        <th style="width: 15%">@Model.userId</th>
+        
+        @if(@Model.iDate.HasValue)
+        {
+        <th style="width: 12%">
+            @Model.iDate.Value.ToString("yyyy-MM-dd")
+        </th>
+        }
+        else
+        {
+        <th style="width: 12%">
+            &nbsp;
+        </th>   
+        }
+
+    </tr>
+    <tr>
+        <td colspan="5" class="cont_text">
+            <pre>@Model.content</pre>
+        </td>
+    </tr>
+</table>
+
+    @if (@Model.userId == @Model.sessionId)
+    {
+        <form action="/Main/Delete" method="post">
+            <input type="submit" value="Delete" />
+            <input type="hidden" name="num" value="@Model.num" />
+        </form>
+        <a href="@Url.Action("Edit", "Main")/?num=@Model.num">Edit</a>
+    }
+
+    <a href="@Url.Action("Index", "Main")">Back to List</a>
+
+

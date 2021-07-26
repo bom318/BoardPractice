@@ -1,0 +1,32 @@
+@model BoardPractice.Models.Board
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    <table class="tbl_basic">
+        <tr>
+            <th style="width: 10%;">이름</th>
+            <td>@Html.TextBoxFor(m => m.num)</td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td colspan="3">@Html.TextBoxFor(m => m.title)</td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td colspan="3">@Html.TextAreaFor(m => m.content)</td>
+        </tr>
+    </table>
+    <p>
+        <input type="submit" value="저장" />
+    </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "/Main/Index")
+</div>

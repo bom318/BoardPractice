@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<BoardPractice.Models.Board>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<script defer src="~/scripts/detail.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script defer src="~/Scripts/search.js"></script>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<h2>Index</h2>
+<script>
+    var _url = '@Url.Action("", "Main")';
+</script>
+
+
+<form>
+    <input type="text" style="border-radius: 5px; margin-bottom: 10px; height: 40px;" name="searchText" class="searchInput" id="searchKeyword"/>
+</form>
+
+<p>
+    @Html.ActionLink("Create New", "index", "Write")
+</p>
+
+
+
+<table class="tbl_list">
+    <tr>
+        <th style="width: 10%">글번호</th>
+        <th style="width: 65%">제목</th>
+        <th style="width: 10%">작성자</th>
+        <th style="width: 15%">작성일</th>
+    </tr>
+
+    @foreach (var m in Model)
+    {
+        <tr class="list">
+            <td>@m.num</td>
+            <td style="text-align: left; padding-left: 15px;">@m.title</td>
+            <td>@m.userId</td>
+
+            @if (m.iDate.HasValue)
+            {
+                <td>@m.iDate.Value.ToString("yyyy-MM-dd")</td>
+            }
+            else
+            {
+                <td>&nbsp;</td>
+            }
+        </tr>
+    }
+
+</table>
+<div style="text-align:center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+
+<p>
+    @Html.ActionLink("Log out", "logout", "Main")
+</p>
+
+
+
+

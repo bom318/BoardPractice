@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/login.css" rel="stylesheet" />
+
+<h2>REGISTER</h2>
+
+<form method="post">
+    <span>ID : </span>
+    <input type="text" name="userId" required/><br />
+    <span>PASSWORD : </span>
+    <input type="password" name="userPw" class="password" required/><br />
+    <span>NAME : </span>
+    <input type="text" name="name" required/><br />
+    <input type="submit" value="회원가입" class="log_bt password" />
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
