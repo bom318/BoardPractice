@@ -11,7 +11,7 @@ namespace BoardPractice.DB
 {
     public class DBManager
     {
-        public const string _connectionString = "Server=192.168.0.112,1434; Database=BOARD_PRACTICE; uid=sa; pwd=qwe123!@#";
+        public const string _connectionString = "Server=172.30.1.12; Database=BOARD_PRACTICE; uid=sa; pwd=qwe123!@#";
 
         public UserInfo GetUserInfo(string userId, string userPW)
         {
@@ -26,16 +26,16 @@ namespace BoardPractice.DB
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@USER_ID", userId);
-                        cmd.Parameters.AddWithValue("@USER_PWD", userPW);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@userPw", userPW);
 
                         var reader = cmd.ExecuteReader();
 
                         while (reader.Read())
                         {
                             result = new UserInfo();
-                            result.userName = reader["NAME"].ToString();
-                            result.userId = reader["USER_ID"].ToString();
+                            result.userName = reader["userName"].ToString();
+                            result.userId = reader["userId"].ToString();
                         }
 
                     }
@@ -45,6 +45,7 @@ namespace BoardPractice.DB
             }
             catch (Exception ex)
             {
+                Debug.WriteLine("GerUser : " + ex.Message);
             }
 
 
@@ -70,13 +71,13 @@ namespace BoardPractice.DB
                         while (reader.Read())
                         {
                             Board board = new Board();
-                            board.num = int.Parse(reader["SEQ"].ToString());
+                            board.num = int.Parse(reader["NUM"].ToString());
                             board.title = reader["TITLE"].ToString();
                             board.content = reader["CONTENT"].ToString();
-                            board.userId = reader["USER_ID"].ToString();
+                            board.userId = reader["USERID"].ToString();
 
                             DateTime date = new DateTime();
-                            if (DateTime.TryParse(reader["IDATE"].ToString(), out date))
+                            if (DateTime.TryParse(reader["REGDATE"].ToString(), out date))
                             {
                                 board.iDate = date;
                             }
@@ -109,9 +110,9 @@ namespace BoardPractice.DB
                     using (SqlCommand cmd = new SqlCommand("USP_INSERT_BOARD", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@USER_ID", userId);
-                        cmd.Parameters.AddWithValue("@TITLE", title);
-                        cmd.Parameters.AddWithValue("@CONTENT", content);
+                        cmd.Parameters.AddWithValue("@userId", userId);
+                        cmd.Parameters.AddWithValue("@title", title);
+                        cmd.Parameters.AddWithValue("@content", content);
 
                         var excuteResult = cmd.ExecuteNonQuery();
 
@@ -149,13 +150,13 @@ namespace BoardPractice.DB
                         while (reader.Read())
                         {
                             board = new Board();
-                            board.num = int.Parse(reader["SEQ"].ToString());
+                            board.num = int.Parse(reader["NUM"].ToString());
                             board.title = reader["TITLE"].ToString();
                             board.content = reader["CONTENT"].ToString();
-                            board.userId = reader["USER_ID"].ToString();
+                            board.userId = reader["USERID"].ToString();
 
                             DateTime date = new DateTime();
-                            if (DateTime.TryParse(reader["IDATE"].ToString(), out date))
+                            if (DateTime.TryParse(reader["REGDATE"].ToString(), out date))
                             {
                                 board.iDate = date;
                             }
@@ -215,7 +216,7 @@ namespace BoardPractice.DB
                     using (SqlCommand cmd = new SqlCommand("USP_UPDATE_BOARD", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@USER_ID", userId);
+                        cmd.Parameters.AddWithValue("@USERID", userId);
                         cmd.Parameters.AddWithValue("@TITLE", title);
                         cmd.Parameters.AddWithValue("@CONTENT", content);
                         cmd.Parameters.AddWithValue("@NUM", num);
@@ -251,7 +252,7 @@ namespace BoardPractice.DB
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@USERID", userId);
                         cmd.Parameters.AddWithValue("@USERPW", userPw);
-                        cmd.Parameters.AddWithValue("@NAME", name);
+                        cmd.Parameters.AddWithValue("@USERNAME", name);
 
                         var excuteResult = cmd.ExecuteNonQuery();
 
@@ -290,13 +291,13 @@ namespace BoardPractice.DB
                         while (reader.Read())
                         {
                             Board board = new Board();
-                            board.num = int.Parse(reader["SEQ"].ToString());
+                            board.num = int.Parse(reader["NUM"].ToString());
                             board.title = reader["TITLE"].ToString();
                             board.content = reader["CONTENT"].ToString();
-                            board.userId = reader["USER_ID"].ToString();
+                            board.userId = reader["USERID"].ToString();
 
                             DateTime date = new DateTime();
-                            if (DateTime.TryParse(reader["IDATE"].ToString(), out date))
+                            if (DateTime.TryParse(reader["REGDATE"].ToString(), out date))
                             {
                                 board.iDate = date;
                             }
